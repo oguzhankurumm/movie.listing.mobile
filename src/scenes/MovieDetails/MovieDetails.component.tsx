@@ -59,11 +59,11 @@ const MovieDetails = () => {
             {/* KEYWORDS LIST */}
             {keywordsData && (
               <View style={keywordsContainer}>
-                {keywordsData.map((keyword: KeywordItemProps, index: number) => (
+                {keywordsData.map((keyword: KeywordItemProps) => (
                   <KeywordItem
                     testId={`movieDetails.keywords.${keyword.name}`}
                     name={keyword.name}
-                    key={`${keyword.name}-${index}`}
+                    key={`${keyword?.name}`}
                   />
                 ))}
               </View>
