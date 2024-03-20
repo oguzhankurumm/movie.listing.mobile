@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
-import { ImageSourcePropType, ImageURISource, TouchableOpacity, View } from 'react-native';
+import { ImageURISource, TouchableOpacity, View } from 'react-native';
 
-import iconsObject from '_assets/icons/iconsObject';
 import { useTheme } from '_styles/theming';
 import { getAutomationTestingProp, getImagePath } from '_utils/helpers';
 

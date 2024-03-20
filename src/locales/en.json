@@ -7,7 +7,11 @@
     "darkTheme": "Dark Theme",
     "tryAgain": "Try Again"
   },
-  "components": {},
+  "components": {
+    "castItem": {
+      "character": "Character"
+    }
+  },
   "home": {
     "headerTitle": "Movie Listing App",
     "title": "Find your favorite movie here",
@@ -16,7 +20,8 @@
   },
   "movieDetails": {
     "headerTitle": "Movie Details",
-    "description": "Description",
+    "overview": "Overview",
+    "keywords": "Keywords",
     "reviews": "Reviews",
     "actors": "Actors"
   }

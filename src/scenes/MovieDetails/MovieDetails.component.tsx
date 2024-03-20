@@ -2,12 +2,13 @@ import React, { useMemo } from 'react';
 import { ImageURISource, ScrollView, View } from 'react-native';
 
 import { useRoute } from '@react-navigation/native';
-import { FlashList } from '@shopify/flash-list';
+import { CastItemProps } from 'src/components/atoms/CastItem/CastItem.types';
+import { KeywordItemProps } from 'src/components/atoms/KeywordItem/KeywordItem.types';
+import { ReviewItemProps } from 'src/components/atoms/ReviewItem/ReviewItem.types';
 
-import { CustomImage, CustomText } from '_atoms';
+import { CastItem, CustomImage, CustomText, KeywordItem, ReviewItem } from '_atoms';
 import { useTranslate } from '_hooks/useTranslate';
 import { AppWrapper } from '_organisms';
-import { width } from '_styles/scaling';
 import { useTheme } from '_styles/theming';
 
 import styles from './MovieDetails.style';
@@ -23,12 +24,17 @@ const MovieDetails = () => {
     container,
     scrollViewContainer,
     contentContainer,
+    mt24,
+    mt16,
     posterImageStyle,
-    descriptionTitleStyle,
-    descriptionTextStyle,
+    keywordsContainer,
+    mb24,
   } = useMemo(() => styles(theme), [theme]);
 
-  const { isLoading, movieInfo, posterImage } = useMovieDetails({ movieId });
+  const { isLoading, movieInfo, keywordsData, castData, reviewsData, posterImage } =
+    useMovieDetails({
+      movieId,
+    });
 
   return (
     <AppWrapper overrideStyle={container} testId='movieDetails'>
@@ -40,15 +46,66 @@ const MovieDetails = () => {
           <View style={contentContainer}>
             <CustomText text={movieInfo?.original_title} textFontStyle='header' />
             <CustomText
-              text={translate('movieDetails.description')}
+              text={translate('movieDetails.overview')}
               textFontStyle='title'
-              overrideStyle={descriptionTitleStyle}
+              overrideStyle={mt16}
             />
+            <CustomText text={movieInfo?.overview} textFontStyle='body' overrideStyle={mt16} />
             <CustomText
-              text={movieInfo?.overview}
-              textFontStyle='body'
-              overrideStyle={descriptionTextStyle}
+              text={translate('movieDetails.keywords')}
+              textFontStyle='title'
+              overrideStyle={mt24}
             />
+            {/* KEYWORDS LIST */}
+            {keywordsData && (
+              <View style={keywordsContainer}>
+                {keywordsData.map((keyword: KeywordItemProps, index: number) => (
+                  <KeywordItem
+                    testId={`movieDetails.keywords.${keyword.name}`}
+                    name={keyword.name}
+                    key={`${keyword.name}-${index}`}
+                  />
+                ))}
+              </View>
+            )}
+            {/* CAST LIST */}
+            {castData && (
+              <View style={mt24}>
+                <CustomText
+                  text={translate('movieDetails.actors')}
+                  textFontStyle='title'
+                  overrideStyle={mb24}
+                />
+                {castData.map((cast: CastItemProps) => (
+                  <CastItem
+                    testId={`movieDetails.cast.${cast?.id}`}
+                    key={cast?.id}
+                    name={cast?.name}
+                    character={cast?.character}
+                    profile_path={cast.profile_path}
+                  />
+                ))}
+              </View>
+            )}
+            {/* REVIEWS */}
+            {reviewsData && (
+              <View style={mt24}>
+                <CustomText
+                  text={translate('movieDetails.reviews')}
+                  textFontStyle='title'
+                  overrideStyle={mb24}
+                />
+                {reviewsData.map((review: ReviewItemProps) => (
+                  <ReviewItem
+                    testId={`movieDetails.reviews.${review?.id}`}
+                    key={review?.id}
+                    author_details={review?.author_details}
+                    content={review?.content}
+                    created_at={review?.created_at}
+                  />
+                ))}
+              </View>
+            )}
           </View>
         </ScrollView>
       )}

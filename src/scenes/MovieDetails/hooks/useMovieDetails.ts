@@ -12,7 +12,7 @@ export const useMovieDetails = ({ movieId }: { movieId: string }) => {
   const dispatch = useAppDispatch();
   const { translate } = useTranslate();
   const { isLoading } = useSelector((state: RootState) => state.loadingState);
-  const { movieDetail } = useSelector((state: RootState) => state.moviesState);
+  const { movieDetail, keywords, credits, reviews } = useSelector((state: RootState) => state.moviesState);
 
   const fetchMovieDetails = useCallback(async () => {
     try {
@@ -36,6 +36,18 @@ export const useMovieDetails = ({ movieId }: { movieId: string }) => {
     return movieDetail?.data;
   }, [movieDetail]);
 
+  const keywordsData = useMemo(() => {
+    return keywords?.data;
+  }, [keywords]);
+  
+  const castData = useMemo(() => {
+    return credits?.data?.cast?.slice(0, 3);
+  }, [movieDetail]);
+
+  const reviewsData = useMemo(() => {
+    return reviews?.data?.results;
+  }, [reviews]);
+
   const posterImage = useMemo(() => {
     return getImagePath(movieDetail?.data?.belongs_to_collection?.poster_path);
   }, [movieDetail]);
@@ -44,5 +56,8 @@ export const useMovieDetails = ({ movieId }: { movieId: string }) => {
     isLoading,
     posterImage,
     movieInfo,
+    keywordsData,
+    castData,
+    reviewsData,
   };
 };

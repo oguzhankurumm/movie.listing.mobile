@@ -10,7 +10,6 @@ const styles = (theme: ThemeType) =>
       paddingHorizontal: 0,
     },
     scrollViewContainer: {
-      flex: 1,
       paddingBottom: verticalScale(20),
     },
     contentContainer: {
@@ -20,11 +19,20 @@ const styles = (theme: ThemeType) =>
     posterImageStyle: {
       aspectRatio: 1,
     },
-    descriptionTitleStyle: {
+    mt16: {
       marginTop: verticalScale(16),
     },
-    descriptionTextStyle: {
+    mt24: {
+      marginTop: verticalScale(24),
+    },
+    mb24: {
+      marginBottom: verticalScale(16),
+    },
+    keywordsContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
       marginTop: verticalScale(16),
+      gap: scale(8),
     },
   });
 
