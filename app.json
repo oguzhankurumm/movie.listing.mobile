@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "movie.listing.mobile",
+    "slug": "movie.listing.mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/tempExpoIcons/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0E0E1D"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "requireFullScreen": true,
+      "bundleIdentifier": "com.movielisting.mobile",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "versionCode": 1,
+      "package": "com.movielisting.mobile",
+      "softwareKeyboardLayoutMode": "resize",
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/tempExpoIcons/adaptive-icon.png",
+        "backgroundColor": "#0E0E1D"
+      }
+    },
+    "web": {
+      "favicon": "./src/assets/tempExpoIcons/favicon.png"
+    },
+    "experiments": {
+      "tsconfigPaths": false
+    }
+  }
+}
