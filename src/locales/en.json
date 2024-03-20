@@ -1,0 +1,16 @@
+{
+  "common": {
+    "error": "Error",
+    "done": "Done",
+    "ok": "Ok",
+    "lightTheme": "Light Theme",
+    "darkTheme": "Dark Theme",
+    "tryAgain": "Try Again"
+  },
+  "components": {},
+  "home": {
+    "title": "Find your favorite movie here",
+    "subtitle": "We have provided many movies",
+    "search": "Search"
+  }
+}

@@ -1,6 +1,38 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "strict": true
-  }
+    "lib": ["ES7"],
+    "strict": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "_assets/*": ["./src/assets/*"],
+      "_atoms": ["./src/components/atoms"],
+      "_molecules": ["./src/components/molecules"],
+      "_organisms": ["./src/components/organisms"],
+      "_hooks/*": ["./src/hooks/*"],
+      "_locales/*": ["./src/locales/*"],
+      "_navigations/*": ["./src/navigations/*"],
+      "_network/*": ["./src/network/*"],
+      "_queries/*": ["./src/queries/*"],
+      "_redux/*": ["./src/redux/*"],
+      "_scenes/*": ["./src/scenes/*"],
+      "_services/*": ["./src/services/*"],
+      "_styles/*": ["./src/styles/*"],
+      "_types/*": ["./src/types/*"],
+      "_utils/*": ["./src/utils/*"]
+    }
+  },
+  "exclude": ["node_modules"]
 }
