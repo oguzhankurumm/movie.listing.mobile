@@ -30,6 +30,7 @@ const AppNavigator = () => {
           headerTintColor: themeState?.data?.themeColors?.white,
           headerShadowVisible: false,
           headerBackTitleVisible: false,
+          headerTitleAlign: 'center',
           headerStyle: {
             backgroundColor: themeState?.data?.backgroundColors?.background,
           },

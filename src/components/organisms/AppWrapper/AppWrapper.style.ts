@@ -25,7 +25,7 @@ const styles = (theme: ThemeType) =>
           paddingTop: 0,
         },
         android: {
-          paddingTop: getStatusBarHeight(),
+          paddingTop: 0,
         },
         default: {
           // other platforms, web for example

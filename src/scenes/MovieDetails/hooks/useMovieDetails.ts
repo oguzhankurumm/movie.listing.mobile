@@ -49,7 +49,7 @@ export const useMovieDetails = ({ movieId }: { movieId: string }) => {
   }, [reviews]);
 
   const posterImage = useMemo(() => {
-    return getImagePath(movieDetail?.data?.belongs_to_collection?.poster_path);
+    return getImagePath(movieDetail?.data?.backdrop_path);
   }, [movieDetail]);
 
   return {
