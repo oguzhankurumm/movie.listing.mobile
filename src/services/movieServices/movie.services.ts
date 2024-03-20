@@ -1,4 +1,4 @@
-import { fillMovieDetail, fillMovies, fillSearchMovies } from '_redux/actions/movies';
+import { fillCredits, fillKeywords, fillMovieDetail, fillMovies, fillReviews, fillSearchMovies } from '_redux/actions/movies';
 import { store } from '_redux/store/configureStore';
 import { env } from '_utils/env';
 import axios from 'axios';
@@ -18,7 +18,7 @@ export const MovieServices = {
     const endPoint = `${env.API_URL}/movie/${id}?api_key=${env.API_KEY}&language=en-US`;
     try {
       const movie: any = await axios.get(endPoint);
-      store.dispatch(fillMovieDetail(movie?.data?.results));
+      store.dispatch(fillMovieDetail(movie?.data));
       return movie;
     } catch (error) {
       return Promise.reject(error);
@@ -27,8 +27,9 @@ export const MovieServices = {
   getReviews: async (id: string) => {
     const endPoint = `${env.API_URL}/movie/${id}/reviews?api_key=${env.API_KEY}&language=en-US&page=1`;
     try {
-      const comments: any = await axios.get(endPoint);
-      return comments;
+      const reviews: any = await axios.get(endPoint);
+      store.dispatch(fillReviews(reviews?.data));
+      return reviews;
     } catch (error) {
       return Promise.reject(error);
     }
@@ -37,7 +38,18 @@ export const MovieServices = {
     const endPoint = `${env.API_URL}/movie/${id}/credits?api_key=${env.API_KEY}&language=en-US`;
     try {
       const credits: any = await axios.get(endPoint);
+      store.dispatch(fillCredits(credits?.data));
       return credits;
+    } catch (error) {
+      return Promise.reject(error);
+    }
+  },
+  getKeywords: async (id: string) => {
+    const endPoint = `${env.API_URL}/movie/${id}/keywords?api_key=${env.API_KEY}`;
+    try {
+      const keywords: any = await axios.get(endPoint);
+      store.dispatch(fillKeywords(keywords?.data?.keywords));
+      return keywords;
     } catch (error) {
       return Promise.reject(error);
     }

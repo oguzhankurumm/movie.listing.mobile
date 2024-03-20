@@ -34,3 +34,10 @@ export const fillCredits = createAsyncThunk(
     return { data: fillCredits };
   }
 );
+
+export const fillKeywords = createAsyncThunk(
+  'movies/fillKeywords',
+  async (fillKeywords: any) => {
+    return { data: fillKeywords };
+  }
+);

@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { RefreshControl, View } from 'react-native';
+import { View } from 'react-native';
 
 import { FlashList } from '@shopify/flash-list';
 
@@ -22,8 +22,7 @@ const Home = () => {
     [theme]
   );
 
-  const { moviesData, onSelectMovie, searchHandler, isRefetching, isLoading, onRefresh } =
-    useHome();
+  const { moviesData, onSelectMovie, searchHandler, isLoading } = useHome();
 
   const renderItem = useCallback((item: MovieItemTypes, testId?: string) => {
     return (
@@ -33,7 +32,7 @@ const Home = () => {
         title={item?.original_title}
         description={item?.overview}
         image={item?.poster_path}
-        onItemPress={() => onSelectMovie(item)}
+        onItemPress={() => onSelectMovie(item?.id.toString())}
       />
     );
   }, []);
@@ -42,13 +41,6 @@ const Home = () => {
     <AppWrapper overrideStyle={container} testId='home'>
       {!isLoading && (
         <FlashList
-          refreshControl={
-            <RefreshControl
-              onRefresh={onRefresh}
-              refreshing={isRefetching ?? false}
-              tintColor={theme?.themeColors?.white}
-            />
-          }
           ListHeaderComponent={
             <View style={listHeaderContainer}>
               <CustomText text={translate('home.title')} textFontStyle='header' />
@@ -66,7 +58,7 @@ const Home = () => {
           }
           showsVerticalScrollIndicator={false}
           data={moviesData}
-          keyExtractor={item => item?.id}
+          keyExtractor={item => item?.id.toString()}
           renderItem={({ item, index }: { item: MovieItemTypes; index: number }) =>
             renderItem(item, `home.movies.${index}`)
           }

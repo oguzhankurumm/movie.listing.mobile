@@ -3,4 +3,7 @@ export interface MoviesType {
   movies: any;
   movieDetail: any;
   searchMovies: any;
+  reviews: any;
+  credits: any;
+  keywords: any;
 }

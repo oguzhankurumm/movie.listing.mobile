@@ -7,6 +7,7 @@ import { useTranslate } from '_hooks/useTranslate';
 import { GlobalLoader } from '_molecules';
 import { themeStore } from '_redux/reducers/theme';
 import Home from '_scenes/Home/Home.component';
+import MovieDetails from '_scenes/MovieDetails/MovieDetails.component';
 import { IThemeProviders } from '_styles/theming';
 
 import Scenes from './Scenes';
@@ -38,6 +39,13 @@ const AppNavigator = () => {
           component={Home}
           options={{
             headerTitle: translate('home.headerTitle'),
+          }}
+        />
+        <MainStackNavigator.Screen
+          name={Scenes.movieDetails}
+          component={MovieDetails}
+          options={{
+            headerTitle: translate('movieDetails.headerTitle'),
           }}
         />
       </MainStackNavigator.Navigator>

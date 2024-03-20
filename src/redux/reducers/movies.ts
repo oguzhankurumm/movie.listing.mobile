@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { MoviesType } from '_redux/stateTypes/MoviesType';
 
-import { fillMovies, fillMovieDetail, fillSearchMovies, fillCredits, fillReviews } from '../actions/movies';
+import { fillMovies, fillMovieDetail, fillSearchMovies, fillCredits, fillReviews, fillKeywords } from '../actions/movies';
 import { RootState } from '../store/configureStore';
 
 const initialState: MoviesType = {
@@ -10,6 +10,9 @@ const initialState: MoviesType = {
   movies: [],
   movieDetail: {},
   searchMovies: [],
+  reviews: [],
+  credits: [],
+  keywords: [],
 };
 
 export const movies = createSlice({
@@ -51,7 +54,7 @@ export const movies = createSlice({
       state.loading = true;
     });
     builder.addCase(fillCredits.fulfilled, (state: any, action) => {
-      state.movieDetail = { ...state.movieDetail, credits: action.payload };
+      state.credits = action.payload;
       state.loading = false;
     });
     builder.addCase(fillCredits.rejected, state => {
@@ -61,10 +64,20 @@ export const movies = createSlice({
       state.loading = true;
     });
     builder.addCase(fillReviews.fulfilled, (state: any, action) => {
-      state.movieDetail = { ...state.movieDetail, reviews: action.payload };
+      state.reviews = action.payload;
       state.loading = false;
     });
     builder.addCase(fillReviews.rejected, state => {
+      state.loading = false;
+    });
+    builder.addCase(fillKeywords.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(fillKeywords.fulfilled, (state: any, action) => {
+      state.keywords = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(fillKeywords.rejected, state => {
       state.loading = false;
     });
   },
