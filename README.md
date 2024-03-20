@@ -1,6 +1,50 @@
 # Movie Listing Mobile App
 
-This project is a [React Native](https://facebook.github.io/react-native/) seed app that can be used to kickstart a mobile application.
+This project is a [React Native](https://facebook.github.io/react-native/) movie listing mobile application using [TMDB](https://developer.themoviedb.org/) API.
+
+## Components Directory
+
+This directory holds a reference to all the re-usable components and their type (Atom, Molecule & Organism)
+
+#### Atoms
+
+An atom is the smallest unit of ordinary matter that forms a chemical element. `Atoms` are the basic units of matter and the defining structure of elements
+
+- CastItem
+- CustomActivityIndicator
+- CustomImage
+- CustomText
+- CustomTextInput
+- KeywordItem
+- MovieCard
+- ReviewItem
+
+#### Molecules
+
+The `Atoms` combine to form `Molecules`
+
+- GlobalLoader
+
+#### Organisms
+
+The `Atoms` & `Molecules` combine to form more complex `Organisms`
+
+- AppWrapper
+- SearchWithIcon
+
+### Hooks
+
+This directory holds a reference to all the re-usable hooks
+
+- useAssets
+- useTranslate
+
+### Utils
+
+This directory holds a reference to all the re-usable utils, helpers & constants
+
+- helpers
+- storageHandler
 
 ## Requirements
 
