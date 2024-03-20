@@ -9,6 +9,7 @@ type ThemeProviderType<Theme> = React.ComponentType<{
 
 enum AppThemes {
   Dark = 'dark',
+  Light = 'light',
 }
 
 export { AppThemes };

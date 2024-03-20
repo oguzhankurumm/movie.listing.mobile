@@ -8,6 +8,7 @@ export const themes = {
     title: AppThemes.Dark,
     themeColors: {
      orange: '#E9853A',
+     dark: '#21202D',
      grey: '#636070',
      white: '#FFFFFF',
     },

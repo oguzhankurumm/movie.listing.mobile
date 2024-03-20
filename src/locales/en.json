@@ -9,8 +9,9 @@
   },
   "components": {},
   "home": {
+    "headerTitle": "Movie Listing App",
     "title": "Find your favorite movie here",
     "subtitle": "We have provided many movies",
-    "search": "Search"
+    "search": "Search movie..."
   }
 }

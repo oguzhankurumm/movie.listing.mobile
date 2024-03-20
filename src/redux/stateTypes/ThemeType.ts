@@ -12,6 +12,7 @@ export interface ThemeType {
     orange: string;
     grey: string;
     white: string;
+    dark: string;
   };
   backgroundColors: {
     background: string;

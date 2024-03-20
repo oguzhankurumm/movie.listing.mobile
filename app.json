@@ -7,7 +7,7 @@
     "icon": "./src/assets/tempExpoIcons/icon.png",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./src/assets/tempExpoIcons/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#0E0E1D"
     },

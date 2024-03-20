@@ -12,7 +12,6 @@ const plugins = [
         _hooks: './src/hooks',
         _locales: './src/locales',
         _navigations: './src/navigations',
-        _network: './src/network',
         _queries: './src/queries',
         _redux: './src/redux',
         _scenes: './src/scenes',

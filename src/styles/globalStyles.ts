@@ -8,8 +8,8 @@ const globalStyles = (theme: ThemeType) =>
     flexOne: {
       flex: 1,
     },
-    mainWrapperPaddingBottom: { paddingBottom: verticalScale(20) },
-    mainWrapperPaddingHorizontal: { paddingHorizontal: scale(20) },
+    mainWrapperPaddingBottom: { paddingBottom: verticalScale(24) },
+    mainWrapperPaddingHorizontal: { paddingHorizontal: scale(24) },
     mainBackgroundColor: { backgroundColor: theme?.backgroundColors?.background },
     textStyle: { color: theme?.themeColors?.white},
   });

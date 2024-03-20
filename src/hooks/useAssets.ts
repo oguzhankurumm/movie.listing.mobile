@@ -17,8 +17,8 @@ export default function useAssets() {
       try {
         // Load fonts
         await Font.loadAsync({
-          'SF-Pro-Display-Regular': roboto, // 400
-          'SF-Pro-Display-Bold': robotoBold, // 700
+          'Roboto-Regular': roboto, // 400
+          'Roboto-Bold': robotoBold, // 700
         });
       } catch (e: any) {
         Alert.alert('Error', e.message);
