@@ -4,6 +4,7 @@ import * as Font from 'expo-font';
 
 import fontsObject from '_assets/fonts/fontsObject';
 import { Alert } from 'react-native';
+import { translateFunc } from '_locales/localesHelpers';
 
 const roboto = fontsObject?.Roboto;
 const robotoBold = fontsObject?.RobotoBold;
@@ -21,7 +22,7 @@ export default function useAssets() {
           'Roboto-Bold': robotoBold, // 700
         });
       } catch (e: any) {
-        Alert.alert('Error', e.message);
+        Alert.alert(translateFunc('common.error'), e.message);
       } finally {
         setIsAssetsLoaded(true);
       }

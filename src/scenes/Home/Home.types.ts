@@ -1,13 +1,12 @@
-import { ImageSourcePropType, ImageURISource } from 'react-native';
+import { ImageURISource } from 'react-native';
 
 import MainTypes from '_types/index';
 
 type MovieItemTypes = MainTypes & {
-  _id: string;
-  title: string;
-  image: string;
-  description: string;
-  genre: string;
+  id: string;
+  original_title: string;
+  overview: string;
+  poster_path: ImageURISource;
 };
 
 export type { MovieItemTypes };

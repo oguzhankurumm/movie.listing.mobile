@@ -1,11 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import {
-  ImageSourcePropType,
-  NativeSyntheticEvent,
-  RefreshControl,
-  TextInputSubmitEditingEventData,
-  View,
-} from 'react-native';
+import { RefreshControl, View } from 'react-native';
 
 import { FlashList } from '@shopify/flash-list';
 
@@ -28,25 +22,17 @@ const Home = () => {
     [theme]
   );
 
-  const {
-    movies,
-    onSelectMovie,
-    setSearchTerm,
-    onSubmitSearch,
-    isRefetching,
-    isLoading,
-    onRefresh,
-  } = useHome();
+  const { moviesData, onSelectMovie, searchHandler, isRefetching, isLoading, onRefresh } =
+    useHome();
 
   const renderItem = useCallback((item: MovieItemTypes, testId?: string) => {
     return (
       <MovieCard
-        key={item?._id}
+        key={item?.id}
         testId={testId}
-        title={item?.title}
-        genre={item?.genre}
-        description={item?.description}
-        image={item?.image as ImageSourcePropType}
+        title={item?.original_title}
+        description={item?.overview}
+        image={item?.poster_path}
         onItemPress={() => onSelectMovie(item)}
       />
     );
@@ -54,44 +40,41 @@ const Home = () => {
 
   return (
     <AppWrapper overrideStyle={container} testId='home'>
-      <FlashList
-        refreshControl={
-          <RefreshControl
-            onRefresh={onRefresh}
-            refreshing={isRefetching ?? false}
-            tintColor={theme?.themeColors?.white}
-          />
-        }
-        ListHeaderComponent={
-          <View style={listHeaderContainer}>
-            <CustomText text={translate('home.title')} textFontStyle='header' />
-            <CustomText
-              text={translate('home.subtitle')}
-              textFontStyle='caption'
-              overrideStyle={subTitleStyle}
+      {!isLoading && (
+        <FlashList
+          refreshControl={
+            <RefreshControl
+              onRefresh={onRefresh}
+              refreshing={isRefetching ?? false}
+              tintColor={theme?.themeColors?.white}
             />
-            <SearchWithIcon
-              placeholder={translate('home.search')}
-              searchHandler={(text: string) => {
-                setSearchTerm(text);
-              }}
-              overrideContainerStyle={searchInputStyle}
-              onSubmitSearch={(text: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
-                onSubmitSearch(text);
-              }}
-            />
-          </View>
-        }
-        showsVerticalScrollIndicator={false}
-        data={movies}
-        keyExtractor={item => item?._id}
-        renderItem={({ item, index }: { item: MovieItemTypes; index: number }) =>
-          renderItem(item, `home.movies.${index}`)
-        }
-        estimatedItemSize={200}
-        estimatedListSize={{ height, width }}
-        showsHorizontalScrollIndicator={false}
-      />
+          }
+          ListHeaderComponent={
+            <View style={listHeaderContainer}>
+              <CustomText text={translate('home.title')} textFontStyle='header' />
+              <CustomText
+                text={translate('home.subtitle')}
+                textFontStyle='caption'
+                overrideStyle={subTitleStyle}
+              />
+              <SearchWithIcon
+                placeholder={translate('home.search')}
+                searchHandler={searchHandler}
+                overrideContainerStyle={searchInputStyle}
+              />
+            </View>
+          }
+          showsVerticalScrollIndicator={false}
+          data={moviesData}
+          keyExtractor={item => item?.id}
+          renderItem={({ item, index }: { item: MovieItemTypes; index: number }) =>
+            renderItem(item, `home.movies.${index}`)
+          }
+          estimatedItemSize={200}
+          estimatedListSize={{ height, width }}
+          showsHorizontalScrollIndicator={false}
+        />
+      )}
     </AppWrapper>
   );
 };

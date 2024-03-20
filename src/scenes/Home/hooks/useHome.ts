@@ -1,66 +1,70 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { Alert, FlatList, LayoutChangeEvent, NativeScrollEvent, NativeSyntheticEvent, TextInputSubmitEditingEventData } from 'react-native';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 
 import NavigationServices from '_navigations/NavigationServices';
 import Scenes from '_navigations/Scenes';
-import { useAppDispatch } from '_redux/store/configureStore';
+import { RootState, useAppDispatch } from '_redux/store/configureStore';
 import { MovieItemTypes } from '../Home.types';
+import { fillLoading } from '_redux/actions/loading';
+import { MovieServices } from '_services/movieServices/movie.services';
+import { translateFunc } from '_locales/localesHelpers';
 
 export const useHome = () => {
   const dispatch = useAppDispatch();
+  const { movies, searchMovies } = useSelector((state: RootState) => state.moviesState);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isRefetching, setIsRefetching] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const movies = [
-    {
-      _id: '0',
-      title: 'The Witcher',
-      image: 'https://lh3.googleusercontent.com/proxy/2JArUPomGr2PP7U1OS3i50FHrVdfs3GvkKpd9NsCzC8zkCVB0xx5OZW-gxaEwtFnYXFCVqIYV89Ij9yqktIWEDYuhIDaojmtJxldlVjmTZA',
-      description: 'The Witcher is a Polish-American fantasy drama streaming television series produced by Lauren Schmidt Hissrich. It is based on the book series of the same name by Andrzej Sapkowski.',
-      genre: 'Action',
-    },
-    {
-      _id: '1',
-      title: 'The Witcher',
-      image: 'https://lh3.googleusercontent.com/proxy/2JArUPomGr2PP7U1OS3i50FHrVdfs3GvkKpd9NsCzC8zkCVB0xx5OZW-gxaEwtFnYXFCVqIYV89Ij9yqktIWEDYuhIDaojmtJxldlVjmTZA',
-      description: 'The Witcher is a Polish-American fantasy drama streaming television series produced by Lauren Schmidt Hissrich. It is based on the book series of the same name by Andrzej Sapkowski.',
-      genre: 'Action',
-    },
-    {
-      _id: '2',
-      title: 'The Witcher',
-      image: 'https://lh3.googleusercontent.com/proxy/2JArUPomGr2PP7U1OS3i50FHrVdfs3GvkKpd9NsCzC8zkCVB0xx5OZW-gxaEwtFnYXFCVqIYV89Ij9yqktIWEDYuhIDaojmtJxldlVjmTZA',
-      description: 'The Witcher is a Polish-American fantasy drama streaming television series produced by Lauren Schmidt Hissrich. It is based on the book series of the same name by Andrzej Sapkowski.',
-      genre: 'Action',
-    },
-  ];
+  const fetchMovies = async () => {
+    try {
+      dispatch(fillLoading({ isLoading: true }));
+      await MovieServices.getMovies();
+      dispatch(fillLoading({ isLoading: false }));
+    } catch (error: any) {
+      Alert.alert(translateFunc('common.error'), error.message);
+      dispatch(fillLoading({ isLoading: false }));
+    }
+  };
+
+  useEffect(() => {
+    fetchMovies();
+  }, []);
 
   const onSelectMovie = useCallback((item: MovieItemTypes) => {
     NavigationServices.navigate(Scenes.movieDetails, { movie: item });
   }, []);
-  
-    const onRefresh = () => {
-    try {
-      console.log('onRefresh');
-    } catch (e: any) {
-      Alert.alert('Error', e.message);
-    }
+   
+  const onRefresh = () => {
+    setIsRefetching(true);
+    fetchMovies();
+    setIsRefetching(false);
   };
 
-  const onSubmitSearch = useCallback((text: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
-    setSearchTerm(text.nativeEvent.text);
+  const searchHandler = useCallback(async(text: string) => {
+    if (text) {
+      setSearchTerm(text);
+      await MovieServices.searchMovies(text);
+      return;
+    }
+    setSearchTerm('');
   }, []);
 
+  const moviesData = useMemo(() => {
+    if (searchTerm) {
+      return searchMovies?.data;
+    }
+    return movies?.data;
+  }, [movies, searchMovies, searchTerm]);
+
   return {
-    movies,
+    moviesData,
     onSelectMovie,
     isRefetching,
     onRefresh,
     isLoading,
     searchTerm,
-    setSearchTerm,
-    onSubmitSearch,
+    searchHandler,
   };
 };

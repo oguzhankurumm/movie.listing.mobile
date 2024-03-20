@@ -1,4 +1,4 @@
-import { Platform } from 'react-native';
+import { ImageSourcePropType, Platform } from 'react-native';
 
 const getAutomationTestingProp = (id?: string) => {
   if (id) {
@@ -10,4 +10,6 @@ const getAutomationTestingProp = (id?: string) => {
   return null;
 };
 
-export { getAutomationTestingProp };
+const getImagePath = (path: ImageSourcePropType) => `https://image.tmdb.org/t/p/original${path}`
+
+export { getAutomationTestingProp, getImagePath };

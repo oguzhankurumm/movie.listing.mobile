@@ -8,7 +8,6 @@ export type MovieCardProps = MainTypes & {
   title?: string;
   image: ImageSourcePropType;
   description: string;
-  genre: string;
   containerStyle?: ViewStyle;
   onItemPress?: () => void;
   imageOverrideStyle?: ImageStyle;

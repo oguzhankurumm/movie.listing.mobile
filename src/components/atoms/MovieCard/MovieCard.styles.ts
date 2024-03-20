@@ -11,22 +11,18 @@ export const styles = (theme: ThemeType) =>
       marginBottom: verticalScale(24),
     },
     imageStyle: {
-      width: scale(110),
-      height: scale(110),
+      width: scale(90),
+      height: scale(90),
       borderRadius: scale(12),
     },
     textContainer: {
       flex: 1,
-      marginStart: scale(32),
-      justifyContent: 'flex-start',
+      marginStart: scale(16),
+      justifyContent: 'center',
       alignItems: 'flex-start',
     },
-    genreTextStyle: {
-      marginTop: verticalScale(8),
-      color: theme?.themeColors?.orange,
-    },
     descriptionTextStyle: {
-      marginTop: verticalScale(16),
+      marginTop: verticalScale(8),
       color: theme?.themeColors?.grey,
     },
   });

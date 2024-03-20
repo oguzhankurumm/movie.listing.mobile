@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
-import { ImageSourcePropType, TouchableOpacity, View } from 'react-native';
+import { ImageSourcePropType, ImageURISource, TouchableOpacity, View } from 'react-native';
 
 import iconsObject from '_assets/icons/iconsObject';
 import { useTheme } from '_styles/theming';
-import { getAutomationTestingProp } from '_utils/helpers';
+import { getAutomationTestingProp, getImagePath } from '_utils/helpers';
 
 import CustomImage from '../CustomImage/CustomImage.component';
 import CustomText from '../CustomText/CustomText.component';
@@ -13,7 +13,6 @@ import { MovieCardProps } from './MovieCard.types';
 const MovieCard: React.FC<MovieCardProps> = ({
   title,
   description,
-  genre,
   image,
   imageOverrideStyle,
   containerStyle,
@@ -24,9 +23,12 @@ const MovieCard: React.FC<MovieCardProps> = ({
   testId = '',
 }) => {
   const theme = useTheme();
+  const posterUrl = getImagePath(image);
 
-  const { cardContainer, imageStyle, textContainer, genreTextStyle, descriptionTextStyle } =
-    useMemo(() => styles(theme), [theme]);
+  const { cardContainer, imageStyle, textContainer, descriptionTextStyle } = useMemo(
+    () => styles(theme),
+    [theme]
+  );
   return (
     <TouchableOpacity
       {...getAutomationTestingProp(testId)}
@@ -38,7 +40,7 @@ const MovieCard: React.FC<MovieCardProps> = ({
         {...getAutomationTestingProp(`${testId}.customImage`)}
         overrideStyle={[imageStyle, imageOverrideStyle]}
         overrideResizeMode={overrideResizeMode}
-        source={image as ImageSourcePropType}
+        source={posterUrl as ImageURISource}
         {...imageProps}
       />
       <View style={textContainer}>
@@ -51,21 +53,12 @@ const MovieCard: React.FC<MovieCardProps> = ({
           }}
         />
         <CustomText
-          overrideStyle={genreTextStyle}
-          text={genre}
-          textFontStyle='caption'
-          testId={`${testId}.genre`}
-          restTextProps={{
-            numberOfLines: 1,
-          }}
-        />
-        <CustomText
           overrideStyle={descriptionTextStyle}
           text={description}
           textFontStyle='body'
           testId={`${testId}.description`}
           restTextProps={{
-            numberOfLines: 3,
+            numberOfLines: 4,
           }}
         />
       </View>
